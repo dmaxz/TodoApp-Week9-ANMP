@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="todo"
+            type="com.example.todoapp.model.Todo" />
+        <variable
+            name="checkListener"
+            type="com.example.todoapp.view.TodoItemLayoutInterface" />
+        <variable
+            name="editListener"
+            type="com.example.todoapp.view.TodoItemLayoutInterface" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/checkTask"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@{todo.title}"
+            android:onCheckedChanged="@{(cb, isChecked)->checkListener.onCheckedChange(cb, isChecked, todo)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgEdit"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imgEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:tag="@{todo.uuid}"
+            android:onClick="@{editListener::onTodoEditClick}"
+            app:layout_constraintBottom_toBottomOf="@+id/checkTask"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/checkTask"
+            app:srcCompat="@drawable/baseline_edit_24" />
+<!--        android:onClick="@{(view)->editListener.onTodoEditClick(view)}"-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
